@@ -1,8 +1,6 @@
-{
-    "Cars":[
-        {
-            "car_plate": "KDJ-735",
-            "type":"vip"
-        }
-    ]
-}
+[
+    {
+        "car_plate": "KDJ735",
+        "type":"vip"
+    }
+]

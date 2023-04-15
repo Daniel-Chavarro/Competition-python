@@ -12,7 +12,8 @@ def clear():
 def validationPlate(data):
     InpPlate = str(input("Ingese su Placa de Carro\n"))
     InpPlate = InpPlate.upper()
-    
+    for obj in data:
+        
 
 def readData():
     with open("car_Plates.json", encoding="utf-8") as f:
@@ -56,10 +57,7 @@ def run():
     time.sleep(2)
     clear()
     while True:
-        carTipe = int(input(
-            "Selecciona el tipo de vehiculo: \n 1: VIP \n 2: Discapacitados \n 3: Emergencia \n 4: Proveedores \n 5: Normal \n"))
-        clear()
-        Placeapark(carTipe, data)
+        validationPlate(data)
 
 
 if __name__ == "__main__":
