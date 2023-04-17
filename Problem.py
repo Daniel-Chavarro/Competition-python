@@ -9,16 +9,33 @@ bahias = {}
 def clear():
     os.system("cls")
 
-def validationPlate(data):
+
+def validationPlate():
     InpPlate = str(input("Ingese su Placa de Carro\n"))
     InpPlate = InpPlate.upper()
-    for obj in data:
-        
+    for i in data:
+        print(i)
+        print(data[i])
+        if InpPlate == i:
+            match data[i]["type"]:
+                case "vip":
+                    print("vip")
+                case "discapacitados":
+                    print("discapacitados")
+                case "emergencia":
+                    print("emergencia")
+                case "proveedores":
+                    print("proveedores")
+        else:
+            break
+    print("Bahía comun")
+
 
 def readData():
+    global data
     with open("car_Plates.json", encoding="utf-8") as f:
         data = json.loads(f.read())
-    return print("Lectura de placas realizada correctamente"), data
+    return print("Lectura de placas realizada correctamente")
 
 
 def Asig_Bahias():
@@ -30,17 +47,17 @@ def Asig_Bahias():
         elif i in range(80, 83):
             bahias[i] = "emergencia"
         elif i in range(98, 101):
-            bahias[i] = "proovedores"
+            bahias[i] = "proveedores"
         else:
             bahias[i] = "normal"
 
     return print("Asignación de Bahías realizada con exito")
 
 
-def Placeapark(carTipe, data):
+def Placeapark(carTipe):
     match carTipe:
         case 1:
-            validationPlate(data)
+            validationPlate()
         # case 2:
 
         # case 3:
@@ -52,12 +69,12 @@ def Placeapark(carTipe, data):
 
 def run():
     clear()
+    readData()
     Asig_Bahias()
-    data = readData()
     time.sleep(2)
     clear()
     while True:
-        validationPlate(data)
+        validationPlate()
 
 
 if __name__ == "__main__":
