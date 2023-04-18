@@ -14,21 +14,24 @@ def validationPlate():
     InpPlate = str(input("Ingese su Placa de Carro\n"))
     InpPlate = InpPlate.upper()
     for i in data:
-        print(i)
-        print(data[i])
         if InpPlate == i:
-            match data[i]["type"]:
+            match data[i]:
                 case "vip":
-                    print("vip")
+                    return InpPlate, data[i]
+                
                 case "discapacitados":
-                    print("discapacitados")
+                    return InpPlate, data[i]
+
                 case "emergencia":
-                    print("emergencia")
+                    return InpPlate, data[i]
+
                 case "proveedores":
-                    print("proveedores")
+                    return InpPlate, data[i]
+                    
         else:
-            break
-    print("Bahía comun")
+            continue
+    comont= "normal"
+    return InpPlate, comont 
 
 
 def readData():
@@ -54,17 +57,6 @@ def Asig_Bahias():
     return print("Asignación de Bahías realizada con exito")
 
 
-def Placeapark(carTipe):
-    match carTipe:
-        case 1:
-            validationPlate()
-        # case 2:
-
-        # case 3:
-
-        # case 4:
-
-        # case 5:
 
 
 def run():
@@ -74,7 +66,8 @@ def run():
     time.sleep(2)
     clear()
     while True:
-        validationPlate()
+        Cplate, type = validationPlate()
+        print(Cplate, type)
 
 
 if __name__ == "__main__":
