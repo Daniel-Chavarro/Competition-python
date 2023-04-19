@@ -3,7 +3,7 @@ import random as rand
 import os
 import json
 
-bahias = {}
+bahias = []
 
 
 def clear():
@@ -30,8 +30,7 @@ def validationPlate():
                     
         else:
             continue
-    comont= "normal"
-    return InpPlate, comont 
+    return InpPlate, "normal"
 
 
 def readData():
@@ -44,15 +43,15 @@ def readData():
 def Asig_Bahias():
     for i in range(1, 101):
         if i in range(1, 6):
-            bahias[i] = "vip"
+            bahias.append("vip")
         elif i in range(61, 66):
-            bahias[i] = "discapacitados"
+            bahias.append("discapacitados")
         elif i in range(80, 83):
-            bahias[i] = "emergencia"
+            bahias.append("emergencia")
         elif i in range(98, 101):
-            bahias[i] = "proveedores"
+            bahias.append("proveedores")
         else:
-            bahias[i] = "normal"
+            bahias.append("normal")
 
     return print("Asignación de Bahías realizada con exito")
 
@@ -67,7 +66,7 @@ def run():
     clear()
     while True:
         Cplate, type = validationPlate()
-        print(Cplate, type)
+        print(bahias.values())
 
 
 if __name__ == "__main__":
