@@ -187,8 +187,7 @@ def run():
         if register == "0":
             BzoneA = [i for i in (Bvip + Bcomm) if i in range(1, 31)]
             BzoneB = [i for i in Bcomm if i in range(31, 61)]
-            BzoneC = [i for i in (Bcomm + Bemer + Bdisc +
-                                  Bprov)if i in range(61, 101)]
+            BzoneC = [i for i in (Bcomm + Bemer + Bdisc +Bprov)if i in range(61, 101)]
             print(f"""
                     {len(Bvip)} Bahias vip dispoibles                                   
                     {len(Bdisc)} Bahías discapacitados disponibles                      {len(BzoneA)} Bahias disponibles en zona A
