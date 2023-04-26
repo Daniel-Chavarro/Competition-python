@@ -57,17 +57,23 @@ def validation_AsignationPlate():
     global Counter_Comm, Counter_Disc, Counter_Emer, Counter_Prov, Counter_Vip
 
     while True:
-        InpPlate = str(input(
-            f"Ingese su Placa de Carro. En caso de haber dado por error, digitar 0:\n"))
+        InpPlate = str(input(f"Ingese su Placa de Carro. En caso de haber dado por error, digitar 0:\n"))
         if re.match(regex, InpPlate):
-            break
+            InpPlate = InpPlate.upper()
+            if InpPlate in Bused:
+                print("La placa ya esta registrada")
+                continue
+            else:
+                break
         elif InpPlate == "0":
             return False, False, False
         else:
             print("La placa no es válida")
             continue
+    
+    
+    
 
-    InpPlate = InpPlate.upper()
     for i in data:
         if InpPlate == i:
             match data[i]:
@@ -211,20 +217,28 @@ def run():
                 print(f"{Cplate}\nBahía {type}\nZona {zone} \nBahía número {place}")
 
             Bused[Cplate] = {"num_bahia": place,
-                             "type_bahia": type, "time_arrived": time.time()}
+                             "type_bahia": type,
+                             "time_arrived": time.time()}
+
+        #Salida del parqueadero
 
         elif register == "1":
             clear()
             while True:
+                
+                #Validacion formato
+
                 Cplate = input("Ingrese su placa de carro: \n")
                 if re.match(regex, Cplate):
+                    Cplate = Cplate.upper()
                     break
                 else:
                     clear()
                     print("La placa no es válida")
                     continue
 
-            Cplate = Cplate.upper()
+            #Elimina la bahia en el diccionario usado y lo vouelve a agregar a la lista segun el tipo
+            
             if Cplate in Bused:
                 match Bused[Cplate]["type_bahia"]:
                     case 'vip':
@@ -256,10 +270,14 @@ def run():
                         Bcomm.append(Bused[Cplate]["num_bahia"])
                         Bcomm.sort()
 
+                #Recoleccion de tiempo y Conversion de tiempo
+
                 time_arrived = Bused[Cplate]["time_arrived"]
                 time_exit = time.time()
                 time_total = time_exit - time_arrived
                 hours_total = time_total / 3600
+
+                #Sumandole a los contadores segun el tipo de zona
 
                 if Bused[Cplate]["num_bahia"] in range(1, 31):
                     TimeA += hours_total
@@ -276,6 +294,8 @@ def run():
             else:
                 clear()
                 print(f"La placa ingresada no se encuentra registrada.")
+        
+        #Opcion Finalizar y entregar informe
 
         elif register == "2":
             password = str(input("Ingrese la contraseña:"))
