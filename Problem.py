@@ -3,6 +3,8 @@ import random as rand
 import os
 import json
 import re
+import playsound
+
 
 # Contador para el tiempo total según zonas
 
@@ -57,7 +59,8 @@ def validation_AsignationPlate():
     global Counter_Comm, Counter_Disc, Counter_Emer, Counter_Prov, Counter_Vip
 
     while True:
-        InpPlate = str(input(f"Ingese su Placa de Carro. En caso de haber dado por error, digitar 0:\n"))
+        InpPlate = str(input(
+            f"Ingese su Placa de Carro. En caso de haber dado por error, digitar 0:\n"))
         if re.match(regex, InpPlate):
             InpPlate = InpPlate.upper()
             if InpPlate in Bused:
@@ -70,9 +73,6 @@ def validation_AsignationPlate():
         else:
             print("La placa no es válida")
             continue
-    
-    
-    
 
     for i in data:
         if InpPlate == i:
@@ -182,12 +182,23 @@ def run():
     time.sleep(2)
     clear()
     while True:
+        if len(Bcomm+Bdisc+Bvip+Bprov+Bemer) == 0:
+            playsound.playsound("full.mp3")
+        elif len(Bcomm+Bdisc+Bvip+Bprov+Bemer) < 30:
+            playsound.playsound("almost.mp3")
+
         register = str(input(
             "0: Ingresar al parqueadero \n1: Salir del parqueadero \n2: Finalizar parqueadero y entregar informe \nIngrese el numero \n"))
         if register == "0":
+            if len(Bcomm+Bdisc+Bvip+Bprov+Bemer) == 0:
+                clear()
+                print("El parqueadero esta lleno, no puedes ingresar")
+                continue
+
             BzoneA = [i for i in (Bvip + Bcomm) if i in range(1, 31)]
             BzoneB = [i for i in Bcomm if i in range(31, 61)]
-            BzoneC = [i for i in (Bcomm + Bemer + Bdisc +Bprov)if i in range(61, 101)]
+            BzoneC = [i for i in (Bcomm + Bemer + Bdisc +
+                                  Bprov)if i in range(61, 101)]
             print(f"""
                     {len(Bvip)} Bahias vip dispoibles                                   
                     {len(Bdisc)} Bahías discapacitados disponibles                      {len(BzoneA)} Bahias disponibles en zona A
@@ -219,13 +230,13 @@ def run():
                              "type_bahia": type,
                              "time_arrived": time.time()}
 
-        #Salida del parqueadero
+        # Salida del parqueadero
 
         elif register == "1":
             clear()
             while True:
-                
-                #Validacion formato
+
+                # Validacion formato
 
                 Cplate = input("Ingrese su placa de carro: \n")
                 if re.match(regex, Cplate):
@@ -236,8 +247,8 @@ def run():
                     print("La placa no es válida")
                     continue
 
-            #Elimina la bahia en el diccionario usado y lo vouelve a agregar a la lista segun el tipo
-            
+            # Elimina la bahia en el diccionario usado y lo vouelve a agregar a la lista segun el tipo
+
             if Cplate in Bused:
                 match Bused[Cplate]["type_bahia"]:
                     case 'vip':
@@ -269,14 +280,14 @@ def run():
                         Bcomm.append(Bused[Cplate]["num_bahia"])
                         Bcomm.sort()
 
-                #Recoleccion de tiempo y Conversion de tiempo
+                # Recoleccion de tiempo y Conversion de tiempo
 
                 time_arrived = Bused[Cplate]["time_arrived"]
                 time_exit = time.time()
                 time_total = time_exit - time_arrived
                 hours_total = time_total / 3600
 
-                #Sumandole a los contadores segun el tipo de zona
+                # Sumandole a los contadores segun el tipo de zona
 
                 if Bused[Cplate]["num_bahia"] in range(1, 31):
                     TimeA += hours_total
@@ -293,8 +304,8 @@ def run():
             else:
                 clear()
                 print(f"La placa ingresada no se encuentra registrada.")
-        
-        #Opcion Finalizar y entregar informe
+
+        # Opcion Finalizar y entregar informe
 
         elif register == "2":
             password = str(input("Ingrese la contraseña:"))
