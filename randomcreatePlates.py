@@ -6,7 +6,7 @@ import time
 letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 numbers = "0123456789"
 lenght = 3
-types = {"vip", "discapacitados", "emergencia", "proveedores"}
+types = ["vip", "discapacitados", "emergencia", "proveedores"]
 
 dictionary = {}
 

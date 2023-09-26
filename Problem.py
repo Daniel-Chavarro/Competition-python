@@ -3,7 +3,7 @@ import random as rand
 import os
 import json
 import re
-import playsound
+
 
 
 # Contador para el tiempo total según zonas
@@ -182,11 +182,6 @@ def run():
     time.sleep(2)
     clear()
     while True:
-        if len(Bcomm+Bdisc+Bvip+Bprov+Bemer) == 0:
-            playsound.playsound("full.mp3")
-        elif len(Bcomm+Bdisc+Bvip+Bprov+Bemer) < 30:
-            playsound.playsound("almost.mp3")
-
         register = str(input(
             "0: Ingresar al parqueadero \n1: Salir del parqueadero \n2: Finalizar parqueadero y entregar informe \nIngrese el numero \n"))
         if register == "0":
